@@ -15,32 +15,41 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-    // Gauti visus produktus
+ // Get all products
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
     
 
-    // Gauti produktą pagal ID
+ // Get the product by id
     public Optional<Product> getProductById(Long id) {
         return productRepository.findById(id);
     }
 
-    // Gauti produktą pagal pavadinimą (paieškos parametrą)
+ // Get product by name (search parameter)
     public Optional<Product> getProductByName(String name) {
         return productRepository.findByName(name);
     }
 
-    // Pridėti naują produktą
+ // Add new product
     public Product addProduct(Product product) {
         return productRepository.save(product);
     }
- // Pridėti naują produktą
+ // Save the new product
     public Product saveProduct(Product product) {
         return productRepository.save(product);
     }
-
-    // Atnaujinti produktą
+ // Delete product by ID
+    public boolean deleteProduct(Long id) {
+        Optional<Product> product = productRepository.findById(id);
+        if (product.isPresent()) {
+            productRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+    
+ // Update the product
     public Product updateProduct(Long id, Product updatedProduct) {
         return productRepository.findById(id).map(product -> {
             product.setName(updatedProduct.getName());
@@ -52,13 +61,9 @@ public class ProductService {
         }).orElseThrow(() -> new RuntimeException("Product not found"));
     }
 
-    // Ištrinti produktą pagal ID
-    public void deleteProduct(Long id) {
-        productRepository.deleteById(id);
-    }
-
-
+ 
 	public Optional<Product> findByName(String name) {
 			return productRepository.findByName(name);
 	}
+	
 }
