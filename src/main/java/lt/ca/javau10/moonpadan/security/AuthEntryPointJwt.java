@@ -28,17 +28,24 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
 		throws IOException, ServletException {
+		
+		// Log an error message when an unauthorized access attempt is detected
 		logger.error("Unauthorized error: {}", authException.getMessage());
 		
+		// Set the response content type to JSON
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+		
+		// Set the HTTP status code to 401 (Unauthorized)
 		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 		
+		// Create a response body with key details: status, error type, message, and the requested path
 		final Map<String, Object> body = new HashMap<>();
-		body.put("status", HttpServletResponse.SC_UNAUTHORIZED);
-	    body.put("error", "Unauthorized");
-	    body.put("message", authException.getMessage());
-	    body.put("path", request.getServletPath());
+		body.put("status", HttpServletResponse.SC_UNAUTHORIZED);  // Add the HTTP status code to the body
+	    body.put("error", "Unauthorized");   // Specify the error as "Unauthorized"
+	    body.put("message", authException.getMessage());   // Include the authentication error message
+	    body.put("path", request.getServletPath());   // Add the requested URL path
 
+	    // Use ObjectMapper to write the response body as a JSON object to the output stream
 	    final ObjectMapper mapper = new ObjectMapper();
 	    mapper.writeValue(response.getOutputStream(), body);
 	}

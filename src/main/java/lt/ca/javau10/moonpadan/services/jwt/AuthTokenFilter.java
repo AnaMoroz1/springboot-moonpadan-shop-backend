@@ -30,9 +30,14 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 	 @Override
 	 protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 	         throws ServletException, IOException {
+		// Parse the JWT from the request
 	     String jwt = parseJwt(request);
+	     
+	  // Check if the JWT is valid
 	     if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
+	    	// If valid, retrieve the authentication object from the JWT
 	         Authentication authentication = jwtUtils.getAuthentication(jwt);
+	      // If authentication is not null, set it in the SecurityContext
 	         if (authentication != null) {
 	             SecurityContextHolder.getContext().setAuthentication(authentication);
 	             logger.debug("Authentication set: " + SecurityContextHolder.getContext().getAuthentication());
@@ -42,6 +47,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 	     } else {
 	         logger.warn("JWT is either null or invalid");
 	     }
+	  // Proceed with the filter chain
 	     filterChain.doFilter(request, response);
 	 }
 	 
@@ -49,10 +55,12 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 	private String parseJwt(HttpServletRequest request) {
 	    String headerAuth = request.getHeader("Authorization");
 
+	 // Check if the header is present and starts with "Bearer "
 	    if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
-	      return headerAuth.substring(7);
+	    	// Extract and return the JWT, removing the "Bearer " prefix
+	    	return headerAuth.substring(7);
 	    }
-
+	 // Return null if the JWT is not present or improperly formatted
 	    return null;
 	}
 

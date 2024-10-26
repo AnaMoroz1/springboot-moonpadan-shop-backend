@@ -1,6 +1,6 @@
 Moonpadan Shop Backend
 
-This project is the backend for Moonpadan, an e-commerce platform developed using Spring Boot. It provides RESTful APIs for managing users, products, orders, and payments.
+This project is the backend for Moonpadan, an e-commerce platform developed using Spring Boot. It provides RESTful APIs for managing users, products and orders.
 
 Features
 

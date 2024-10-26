@@ -56,7 +56,7 @@ public class DataLoader implements CommandLineRunner {
 	    }
 
 
-	    // Pridėti produktą tik tuo atveju, jei jo dar nėra
+	 // Add the product only if it doesn't already exist
 	    private void addProductIfNotExists(Product product) {
 	        Optional<Product> existingProduct = productRepository.findByName(product.getName());
 	        if (existingProduct.isEmpty()) {

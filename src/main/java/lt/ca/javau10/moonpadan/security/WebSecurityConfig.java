@@ -26,10 +26,10 @@ import lt.ca.javau10.moonpadan.services.jwt.AuthTokenFilter;
 public class WebSecurityConfig {
 	
 	@Autowired
-	UserDetailsService userDetailsService;
+	UserDetailsService userDetailsService; // Service for loading user details from database
 	
 	@Autowired
-	AuthenticationEntryPoint unauthorizedHandler;
+	AuthenticationEntryPoint unauthorizedHandler;  // Custom entry point to handle unauthorized access
 	
 	@Bean
 	AuthTokenFilter authenticationJwtTokenFilter() {
@@ -51,6 +51,7 @@ public class WebSecurityConfig {
 		return authConfig.getAuthenticationManager();
 	}
 	
+	// Bean to encode passwords using bcrypt hashing algorithm
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -59,6 +60,7 @@ public class WebSecurityConfig {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		
+		// Configure CORS (Cross-Origin Resource Sharing) to allow requests from specific origins (e.g., localhost:3000)
 		http.cors(cors -> cors.configurationSource(request -> {
             CorsConfiguration configuration = new CorsConfiguration();
             configuration.setAllowedOrigins(List.of("http://localhost:3000"));
@@ -67,6 +69,7 @@ public class WebSecurityConfig {
             configuration.setAllowedHeaders(List.of("*"));
             return configuration;
         }))
+		// Disable CSRF protection since the app is stateless (JWTs are used instead)
 		.csrf(csrf -> csrf.disable()).authorizeHttpRequests(auth -> 
 		auth.requestMatchers("/api/auth/**").permitAll()
 		.requestMatchers("/api/cart/*").permitAll()

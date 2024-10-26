@@ -18,7 +18,7 @@ public class Attribute {
     private String value;
 
    
-    // Konstruktorius
+ // Constructor
     public Attribute () {}
 
     public Attribute (String name, String value) {

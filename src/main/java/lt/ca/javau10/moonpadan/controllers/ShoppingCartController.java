@@ -27,22 +27,22 @@ public class ShoppingCartController {
     private ShoppingCart shoppingCart = new ShoppingCart();
 
     @Autowired
-    private ProductService productService; // Pridėta `ProductService` injekcija
+    private ProductService productService; // Added `ProductService` injection
 
-    // Pridėti produktą į krepšelį
+    // Add product to cart
     @PostMapping("/add")
     public ResponseEntity<Void> addProduct(@RequestBody CartItemDto cartItemDto) {
         Optional<Product> productOptional = productService.getProductById(cartItemDto.getProductId());
         if (productOptional.isPresent()) {
             Product product = productOptional.get();
-            shoppingCart.addProduct(product, cartItemDto.getQuantity()); // Naudojamas teisingas objektas
+            shoppingCart.addProduct(product, cartItemDto.getQuantity()); // The correct object is used
             return ResponseEntity.ok().build();
         } else {
-            return ResponseEntity.notFound().build(); // jei produktas nerastas
+            return ResponseEntity.notFound().build(); // if product not found
         }
     }
 
-    // Pašalinti produktą iš krepšelio
+    // Remove product from cart
     @DeleteMapping("/remove")
     public ResponseEntity<Void> removeProduct(@RequestBody Product product) {
         shoppingCart.removeProduct(product);
@@ -61,13 +61,13 @@ public class ShoppingCartController {
 		return new Product(productId, "Sample product",20.0);
 	}
 
-	// Gauti visus elementus iš krepšelio
+    // Get all items from cart
     @GetMapping
     public List<CartItem> getCartItems() {
         return shoppingCart.getItems();
     }
 
-    // Gauti bendrą kainą
+    // Get the total price
     @GetMapping("/total")
     public double getTotalPrice() {
         return shoppingCart.getTotalPrice();

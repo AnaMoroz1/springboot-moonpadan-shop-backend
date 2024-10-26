@@ -94,20 +94,28 @@ public class UserDto implements UserDetails {
 	
 	@Override 
 	public boolean isAccountNonExpired() {
+		// Indicates whether the user's account has expired.
+	    // Returning true means the account is valid and not expired.
 		return true;
 	}
 	@Override 
 	public boolean isCredentialsNonExpired() {
+		// Indicates whether the user's credentials (password) have expired.
+	    // Returning true means the credentials are still valid and have not expired.
 		return true;
 		}
 	@Override 
 	public boolean isEnabled() {
+		// Indicates whether the user is enabled or disabled.
+	    // Returning true means the user is enabled and allowed to log in.
 		return true;
 	}
 
 
 	@Override
 	public int hashCode() {
+		// Generates a hash code based on the 'id' field.
+	    // The 'Objects.hash()' method ensures a consistent hash code is generated.
 		return Objects.hash(id);
 	}
 
