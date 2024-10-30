@@ -1,6 +1,10 @@
 Moonpadan Shop Backend
 
+<<<<<<< HEAD
 This project is the backend for Moonpadan, an e-commerce platform developed using Spring Boot. It provides RESTful APIs for managing users, products and orders.
+=======
+This project is the backend for Moonpadan, an e-commerce platform developed using Spring Boot. It provides RESTful APIs for managing products, orders and users.
+>>>>>>> aca0723099cc4968c7c81b726b70f963799f4b8a
 
 Features
 
@@ -57,6 +61,7 @@ The application will be accessible at http://localhost:8080.
 Testing the API
 You can test the APIs using tools like Postman or cURL.
 
+<<<<<<< HEAD
 User Registration & Login:
 POST /api/auth/signup - Register a new user
 POST /api/auth/signin - Authenticate a user and get a JWT token
@@ -65,3 +70,102 @@ GET /api/products - Retrieve all products
 POST /api/products - Add a new product (Admin access required)
 Order Management:
 POST /api/orders - Create a new order
+=======
+user-controller
+
+
+GET
+/api/users/{id}
+
+
+PUT
+/api/users/{id}
+
+
+DELETE
+/api/users/{id}
+
+
+GET
+/api/users/
+
+
+POST
+/api/users/
+
+product-controller
+
+
+POST
+/api/products/add
+
+
+GET
+/api/products/{id}
+
+
+DELETE
+/api/products/{id}
+
+
+PATCH
+/api/products/{id}
+
+
+GET
+/api/products
+
+
+GET
+/api/products/search
+
+shopping-cart-controller
+
+
+POST
+/api/cart/decrease
+
+
+POST
+/api/cart/add
+
+
+GET
+/api/cart
+
+
+GET
+/api/cart/total
+
+
+DELETE
+/api/cart/remove
+
+auth-controller
+
+
+POST
+/api/auth/signup
+
+
+POST
+/api/auth/signin
+
+simple-controller
+
+
+GET
+/api/test/user
+
+
+GET
+/api/test/mod
+
+
+GET
+/api/test/all
+
+
+GET
+/api/test/admin
+>>>>>>> aca0723099cc4968c7c81b726b70f963799f4b8a
